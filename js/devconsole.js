@@ -171,7 +171,7 @@ function get_realtime() {
    setup_previously_watching();
    
    if (!window.channel_watching) {
-     subscribe("dev_console", activate_channel_watch("dev_console");
+     subscribe("dev_console", activate_channel_watch("dev_console"));
    }
       
    setInterval(function() {
