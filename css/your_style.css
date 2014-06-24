@@ -130,7 +130,7 @@ html,body {
   cursor: pointer;
 }
 
-div.msg-item .viewing {
+div.viewing {
   background-color: #adf;
 }
 
