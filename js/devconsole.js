@@ -90,6 +90,7 @@ function update_channel_nav() {
         $(this).click(function(){
           var c = $(this).attr("data-channel");              
           console.log("clicked " + c + " channel");
+          subscribe(c, activate_channel_watch(c));
         });
       });
     }
@@ -101,6 +102,9 @@ function activate_channel_watch(c) {
   $("#channels-on li[data-channel='" + c + "']").addClass("watching");
   $("#channel-watching").text(c);
   window.channel_watching = c;
+  $("#msg-container div").remove();
+  $("#msg-viewer pre").remove();
+  $("#msg-rawstream div").remove();
   localStorage.setItem("channel_watching", c);
 }
 
