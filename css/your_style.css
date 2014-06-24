@@ -1,0 +1,454 @@
+/*
+ * It is advised not to edit the smartadmin_production.css
+ * as this will override any changes you make in the 
+ * later versions of this theme. 
+ * 
+ * We advise that you use use this CSS to override 
+ * SmartAdmin styles. 
+ * 
+ * Rename the stylesheet to whatever your liking so it will stay
+ * unique to you with each update of SmartAdmin.
+ */
+
+/*
+ * INDEX
+ * 
+ * - HTML
+ * - BODY
+ * - CUSTOM STYLES
+ */
+ 
+#channel-list {
+  z-index: 904;
+  padding-top: 0;
+  background: #111;  
+}
+ 
+.menu-on-top #main, #main {
+   margin-left: 220px !important;
+}
+ 
+#channel-list nav ul li {
+  cursor: pointer;
+}
+
+#channel-list nav ul li span.menu-item-parent {
+   max-width: 160px;
+   text-overflow: ellipsis;
+   text-align: left;
+   line-height: 1.1em;
+   
+}
+
+#channel-list .menu-item-parent+span {
+  float: none!important;
+  top: 10px;
+  right: 5px;
+  position: absolute;
+  font-size: 10px;
+}
+
+#channels-on i {
+  color: green;
+}
+li.watching {
+  background-color: #333;
+}
+
+li.watching a, li.watching span, li.watching a:hover {
+  color: white;
+}
+html,body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+#content, html, body, #main {
+  background: none;
+  background-color: #222;
+}
+.panel-block {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: block;
+}
+.panel {
+  position: absolute;
+  top: 158px;
+  bottom: 0;
+  height: 100%;
+  overflow: scroll; 
+  overflow-x: hidden;
+  z-index: 1001;
+  /*-webkit-overflow-scrolling: touch;*/
+}
+.panel-channel-list {
+  top: 119px;
+}
+.panel-content {
+
+}
+
+.panel-content-padded {
+  padding: 10px;
+}
+.panel-1 {
+  left: 0px;
+  width: 220px;
+  background-color: #111;
+}
+.panel-2 {
+  left: 220px;
+  width: 260px;
+  background-color: #aaa;
+}
+.panel-3 {
+  width: 400px;
+  left:460px;
+  background-color: #fff;
+}
+.panel-4 {
+  min-width: 400px;  
+  left: 860px;
+  background-color: #222;
+}
+
+#msg-container {
+  border-collapse: collapse;
+  display: table;
+}
+.msg-item {
+  display: table-row;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 1px solid #000;
+  border-collapse: collapse;
+  background: #ccc;
+  cursor: pointer;
+}
+
+div.msg-item .viewing {
+  background-color: #adf;
+}
+
+.msg-item-content {
+  display: table-cell;
+  height: 40px;
+  width: 200px;
+  font-family: Menlo;
+  text-align: center;
+  vertical-align: middle;
+}
+
+
+.panel-header {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+#msg-rawstream {
+}
+
+#msg-viewer {
+  background-color: white;
+  display: block;
+}
+
+.msg-raw-item-content {
+  color: green;
+  padding: 15px;
+  font-family: Menlo, monospace;
+}
+
+
+
+#msg-viewer pre {
+  outline: 1px solid #ccc;
+  padding: 5px; margin:
+  5px;
+font-family: Menlo, 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', Monaco, Consolas, monospace;
+  font-size: 11px;
+  line-height: 1.5;
+}
+#msg-viewer .string {
+  color: #008000;
+}
+
+#msg-viewer .number {
+  color: #0000ff;
+}
+
+#msg-viewer .boolean {
+  color: #b22222;
+}
+
+#msg-viewer .null {
+  color: #808080;
+}
+
+#msg-viewer .key {
+  color: #333;
+  font-weight: bold;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#channel-list nav ul li i {
+  font-size: 1.2em;
+  line-height: 1em;
+  vertical-align: 0%;
+}
+ 
+#channel-list nav ul li a:active {
+  background: #616161 !important;
+}
+
+/* All levels */
+#channel-list nav ul {
+  width: 100%;
+  padding: 40px 28px 25px 0;
+  padding: 0;
+  margin: 0;
+  font-size: 13px;
+  line-height: 0.5em;
+  list-style: none;
+  position: relative;
+}
+/* All levels */
+#channel-list nav ul .active > a {
+  color: #fff !important;
+  position: relative;
+}
+/* All levels */
+#channel-list nav ul li.active > a:before {
+  content: "\f0d9";
+  font-family: FontAwesome;
+  display: block;
+  height: 27px;
+  line-height: normal;
+  width: 27px;
+  position: absolute;
+  right: -21px;
+  font-size: 20px;
+  color: #eeeeee;
+}
+#channel-list nav ul li.active.open > a:before {
+  content: "";
+}
+#channel-list nav > ul > li:last-child.open {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+/* All levels */
+#channel-list nav ul li {
+  overflow: hidden;
+}
+/* All levels */
+#channel-list nav ul li a {
+  line-height: normal;
+  font-size: 14px;
+  padding: 10px 10px 10px 11px;
+  color: #a8a8a8;
+  display: block;
+  font-weight: normal;
+  text-decoration: none !important;
+  position: relative;
+}
+/* Second level */
+#channel-list nav > ul > li > ul > li > a {
+  padding-top: 7px;
+  padding-bottom: 7px;
+}
+/* Third Level */
+#channel-list nav > ul > li > ul > li > ul > li > a {
+  padding-top: 7px;
+  padding-bottom: 7px;
+}
+/* All levels */
+#channel-list nav ul li a:focus {
+  color: #c9c9c9;
+}
+/* All levels */
+#channel-list nav ul li a:hover {
+  color: #ffffff;
+  text-decoration: none;
+}
+/* All levels */
+#channel-list nav ul b {
+  float: right;
+  font-size: 11px;
+  margin-top: 2px;
+}
+/* All levels */
+#channel-list nav ul span.menu-item-parent {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+/* First level: A, Second level: LI Open */
+#channel-list nav ul li.open > a,
+#channel-list nav ul li.open > a b {
+  color: #fff !important;
+}
+/* First level: Icon */
+#channel-list nav > ul > li > a b {
+  position: absolute !important;
+  right: 10px;
+  top: 10px;
+}
+#channel-list nav > ul > li > a > i {
+  /*font-size: 121%; fa-lg overrides this so..  */
+  margin-right: 5px;
+  width: 15px;
+  display: inline-block;
+  text-align: center;
+  position: relative;
+}
+/* First level icon */
+#channel-list nav > ul > li > a > i > em {
+  font-size: 9px;
+  display: block;
+  padding: 2px;
+  position: absolute;
+  top: -8px;
+  right: -6px;
+  text-decoration: none;
+  font-style: normal;
+  background: #ED1C24;
+  color: #ffffff;
+  min-width: 13px;
+  border-radius: 50%;
+  max-height: 13px;
+  line-height: 8px;
+  font-weight: bold;
+  vertical-align: baseline;
+  white-space: nowrap;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+/* Second level switched to relative */
+#channel-list nav ul li li {
+  border-bottom: none;
+  position: relative;
+}
+/* Second level: UL */
+#channel-list nav > ul > li > ul::before {
+  content: "";
+  display: block;
+  position: absolute;
+  z-index: 1;
+  left: 23px;
+  top: 0;
+  bottom: 0;
+  border-left: 1px solid #7A7A7A;
+}
+/* Second level: UL LI */
+#channel-list nav > ul ul li::before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 8px;
+  left: 23px;
+  top: 16px;
+  border-top: 1px solid #7A7A7A;
+  z-index: 1;
+}
+/* Third level: UL LI */
+#channel-list nav > ul ul ul li::before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 18px;
+  left: 10px;
+  top: 17px;
+  border-top: 1px solid transparent;
+}
+/* Second level and onwards > */
+#channel-list nav > ul ul li a i {
+  font-size: 14px !important;
+  width: 18px !important;
+  text-align: center !important;
+  vertical-align: 0 !important;
+  line-height: 1 !important;
+}
+/* Second and Third level line color */
+#channel-list nav > ul > li:hover > ul::before,
+#channel-list nav > ul > li:hover > ul > li::before {
+  border-color: #ACACAC !important;
+}
+/* Second Level: UL */
+#channel-list nav ul ul {
+  margin: 0;
+  padding: 0;
+  display: none;
+  background: rgba(69, 69, 69, 0.6);
+}
+#channel-list nav ul ul {
+  padding: 7px 0;
+}
+/* Third Level: UL */
+#channel-list nav ul ul ul {
+  background: transparent;
+  padding: 0;
+}
+/* Third Level: LI */
+#channel-list nav ul ul li {
+  margin: 0;
+  padding: 0;
+}
+/* Second Level: A */
+#channel-list nav ul ul li > a {
+  padding-left: 42px;
+  font-size: 14px;
+  font-weight: normal;
+  outline: 0;
+}
+/* Second Level: A:hover */
+#channel-list nav ul ul li > a:hover {
+  background-color: rgba(69, 69, 69, 0.8);
+  color: #ffffff;
+}
+/* Third Level: A */
+#channel-list nav ul ul ul li a {
+  color: #bfbfbf;
+  padding: 8px 10px 8px 60px;
+  font-size: 14px;
+}
+/* Third Level: A:hover */
+#channel-list nav ul ul ul li a:hover {
+  background-color: #4C4F53;
+  color: #ffffff;
+}
+/* Fourth Level: A */
+#channel-list nav ul ul ul ul li a {
+  padding-left: 80px;
+}
+/* Fifth Level: A */
+#channel-list nav ul ul ul ul ul li a {
+  padding-left: 100px;
+}
+/* Sixth Level: A */
+#channel-list nav ul ul ul ul ul ul li a {
+  padding-left: 120px;
+}
+/* Second level: B */
+#channel-list nav ul ul b {
+  color: #B3B3B3;
+}
+/* Second level: LI:hover B */
+#channel-list nav ul ul > li:hover b {
+  color: #D5D9E2;
+}
