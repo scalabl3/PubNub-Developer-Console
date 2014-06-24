@@ -116,7 +116,8 @@ function message_received(msg, id, channel) {
     
     $("#msg-container div.msg-item[data-index='" + index + "']").click(function(){
       display_in_viewer(window.channel_watching_messages[index]);
-      $(this).addClass("viewing");
+      $("div.msg-item").removeClass("viewing");
+      $(this).addClass("viewing");      
     });
   }
 }
