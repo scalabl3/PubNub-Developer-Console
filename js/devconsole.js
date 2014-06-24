@@ -128,7 +128,7 @@ function subscribed(c) {
   update_channel_nav();
 }
 
-function subscribe(c) {
+function subscribe(c, callback) {
   window.pubnub.subscribe({
     channel : c,
     message : function(m,e,c) { 
@@ -136,14 +136,14 @@ function subscribe(c) {
         //console.log("Message Received: \n\tm:" + m + "\n\te:" + e[1] + "\n\tc:" + c); 
         //console.log(m);
     },
-    connect : function() { subscribed(c); }
+    connect : function() { subscribed(c); if (callback) { callback(); } }
   });
 }
 
 function publish_interval() {
    window.pubnub.publish({
      channel : "dev_console",
-     message : { name: "Scalabl3", msg: "What's Up Developer Console", uuid: window.pubnub.uuid() }
+     message : { name: "Scalabl3", msg: "What's Up Developer Console", uuid: window.pubnub.uuid(), favorite_colors: [ "red", "green", "blue"], preferences: { tablet: "iPad", phone: "iPhone", papertowels: "Viva", sub: "Philly Cheesesteak"} }
    });
 }
 
@@ -170,10 +170,8 @@ function get_realtime() {
    
    setup_previously_watching();
    
-   activate_channel_watch("dev_console");
-   
    if (!window.channel_watching) {
-     subscribe("dev_console");
+     subscribe("dev_console", activate_channel_watch("dev_console");
    }
       
    setInterval(function() {
