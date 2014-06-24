@@ -143,7 +143,7 @@ function subscribe(c, callback) {
 function publish_interval() {
    window.pubnub.publish({
      channel : "dev_console",
-     message : { name: "Scalabl3", msg: "What's Up Developer Console", uuid: window.pubnub.uuid(), favorite_colors: [ "red", "green", "blue"], preferences: { tablet: "iPad", phone: "iPhone", papertowels: "Viva", sub: "Philly Cheesesteak"} }
+     message : { name: "Scalabl3", msg: "What's Up Developer Console", uuid: window.pubnub.uuid(), favorite_colors: [ "red", "green", "blue"], preferences: { tablet: "iPad", phone: "iPhone", papertowels: "Viva", foods: { sub: "Philly Cheesesteak", fruit: "Pineapple", cheese: "Cheddar"} }
    });
 }
 
