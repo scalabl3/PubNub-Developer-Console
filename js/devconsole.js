@@ -127,8 +127,9 @@ function message_received(msg, id, channel) {
 }
 function subscribed(c) {
   console.log("subscribed to channel: " + c);
+  occ = (window.channels_off[c] ? window.channels_off[c].occupants : -1)
   delete window.channels_off[c]
-  window.channels_on[c] = { occupants: 1 }
+  window.channels_on[c] = { occupants: occ }
   save_channel_info();
   update_channel_nav();
 }
