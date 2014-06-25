@@ -84,9 +84,14 @@ var jsonDisplay = {
     }
 };
 
+function clear_localStorage() {
+  localStorage.clear();
+  window.localStorage.clear();
+}
+
 function save_channel_info() {
   localStorage.setObject("channels_on", window.channels_on);
-  localStorage.setObject("channels_off", window.channels_off)
+  localStorage.setObject("channels_off", window.channels_off);
 }
 
 function load_localstorage() {
@@ -178,11 +183,11 @@ function pull_channel_list() {
       $.each(data.payload.channels, function(k,v){
           var c = k;
           var occupants = v.occupancy;
-          if (window.channels_on[c]) {
+          if (window.channels_on.hasOwnProperty(c)) {
             //console.log("updating channels_on: " + c + " with " + occupants);
             window.channels_on[c].occupants = occupants;
           }
-          else if (window.channels_off[c]) {
+          else if (window.channels_off.hasOwnProperty(c)) {
             //console.log("updating channels_off: " + c + " with " + occupants);
             window.channels_off[c].occupants = occupants;
           }
@@ -221,7 +226,7 @@ function message_received(msg, id, channel) {
 }
 function subscribed(c) {
   console.log("subscribed to channel: " + c);
-  var occ = (window.channels_off[c] ? window.channels_off[c].occupants : -1);
+  var occ = (window.channels_off.hasOwnProperty(c) ? window.channels_off[c].occupants : -1);
   delete window.channels_off[c];
   window.channels_on[c] = { occupants: occ };
   save_channel_info();
