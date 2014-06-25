@@ -108,6 +108,11 @@ function load_localstorage() {
   window.channels_off = localStorage.getObject("channels_off");
   window.channel_watching = localStorage.getItem("channel_watching");  
   window.channel_watching_messages = [];
+  
+  $("#current_publishkey").text(window.pubkey);
+  $("#current_subscribekey").text(window.subkey);
+  $("input#publishkey").val(window.pubkey);
+  $("input#subscribekey").val(window.subkey);
 }
 
 function activate_channel_watch(c) {
@@ -290,6 +295,18 @@ function get_realtime() {
    setInterval(function() {
       publish_interval();
    }, 1000);
+   
+   $("#btn-save-pubnub-settings").click(function(e) {
+      e.preventDefault();
+      
+      window.pubkey = $("input#publishkey").val();
+      window.subkey = $("input#subscribekey").val();
+      
+      localStorage.setItem("publishkey", window.pubkey);
+      localStorage.setItem("subscribekey", window.subkey);
+      $("#current_publishkey").text(window.pubkey);
+      $("#current_subscribekey").text(window.subkey);
+   })
 }
 
 
