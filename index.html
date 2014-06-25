@@ -232,7 +232,8 @@
              var channel_height = $(this).height() - $header.height() - $topmenu.height();
              var content_height = channel_height - $breadcrumb.height();
              var half_content_height = content_height / 2;
-             var position = $panel_history.position();
+             var p1 = $panel_history.position();
+             var p2 = $panel_rawstream.position();
              
              $panel_channels.height(channel_height);
              $panel_msg_list.height(half_content_height);
@@ -249,19 +250,25 @@
              $panel_rawstream.width(raw_presence_width);
              
              var reporting = "";
-             reporting += "\tbrowser       : " + $(this).height() + "\n";
-             reporting += "\theader        : " + $header.height() + "\n";
-             reporting += "\ttopmenu       : " + $topmenu.height() + "\n";
-             reporting += "\tchannels      : " + $panel_channels.height() + "\n\n";
+             reporting += "\tbrowser        : " + $(this).height() + "\n";
+             reporting += "\theader         : " + $header.height() + "\n";
+             reporting += "\ttopmenu        : " + $topmenu.height() + "\n";
+             reporting += "\tchannels       : " + $panel_channels.height() + "\n\n";
              
-             reporting += "\tcontent_height: " + content_height + "\n";
-             reporting += "\thalf_height   : " + half_content_height + "\n";
-             reporting += "\tmsg_list      : " + $panel_msg_list.height() + "\n";
-             reporting += "\thistory       : " + $panel_history.height() + "\n";
+             reporting += "\tcontent_height : " + content_height + "\n";
+             reporting += "\thalf_height    : " + half_content_height + "\n";
+             reporting += "\tmsg_list       : " + $panel_msg_list.height() + "\n";
+             reporting += "\thistory        : " + $panel_history.height() + "\n";
              
-             reporting += "\thistory top o  : " + position.top + "\n";
-             position = $panel_history.position();
-             reporting += "\thistory top n  : " + position.top + "\n";
+             reporting += "\thistory top o  : " + p1.top + "\n";
+             reporting += "\traw top o      : " + p2.top + "\n";
+             
+             p1 = $panel_history.position();
+             p2 = $panel_rawstream.position();
+             
+             reporting += "\thistory top n  : " + p1.top + "\n";
+             reporting += "\traw top n      : " + p2.top + "\n";
+             
              console.log(reporting);
 
              
