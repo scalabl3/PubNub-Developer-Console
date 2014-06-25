@@ -10,7 +10,7 @@ Storage.prototype.getObject = function(key) {
 var jsonDisplay = {
 
     jsonstring : '' ,
-    outputDivID : '#msg-viewer',
+    outputDivID : '#msg-viewer-container',
 
     outputPrettyFromString: function (jsonstring) {
         jsonstring = (jsonstring === '' ? jsonDisplay.jsonstring : jsonstring);
@@ -110,9 +110,9 @@ function activate_channel_watch(c) {
   $("#channels-on li[data-channel='" + c + "']").addClass("watching");
   $("#channel-watching").text(c);
   window.channel_watching = c;
-  $("#msglist-container div").remove();
-  $("#msg-viewer pre").remove();
-  $("#msg-rawstream div").remove();
+  $("#msg-list-container div").remove();
+  $("#msg-viewer-container pre").remove();
+  $("#msg-rawstream-container div").remove();
   localStorage.setItem("channel_watching", c);
 }
 function update_channel_nav() {
@@ -206,12 +206,6 @@ function pull_channel_list() {
 
 
 
-
-
-
-
-
-
 function display_in_viewer(msg) {
   jsonDisplay.outputPrettyFromObject(msg);
 }
@@ -219,10 +213,10 @@ function display_in_viewer(msg) {
 function message_received(msg, id, channel) {
   if (channel === window.channel_watching) {
     var index = window.channel_watching_messages.push(msg) - 1;
-    $("#msglist-container").prepend("<div class=\"msg-item\" id=\"" + id + "\" data-index=\"" + index + "\"><div class=\"msg-item-content\">" + id + "</div></div>");
-    $("#msg-rawstream").prepend("<div class=\"msg-raw-item\"><div class=\"msg-raw-item-content\">" + JSON.stringify(msg) + "</div></div>");
+    $("#msg-list-container").prepend("<div class=\"msg-item\" id=\"" + id + "\" data-index=\"" + index + "\"><div class=\"msg-item-content\">" + id + "</div></div>");
+    $("#msg-rawstream-container").prepend("<div class=\"msg-raw-item\"><div class=\"msg-raw-item-content\">" + JSON.stringify(msg) + "</div></div>");
     
-    $("#msglist-container div.msg-item[data-index='" + index + "']").click(function(){
+    $("#msg-list-container div.msg-item[data-index='" + index + "']").click(function(){
       display_in_viewer(window.channel_watching_messages[index]);
       $("div.msg-item").removeClass("viewing");
       $(this).addClass("viewing");      

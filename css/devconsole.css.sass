@@ -17,7 +17,14 @@
  * - BODY
  * - CUSTOM STYLES
  */
- 
+
+$h_header: 49px
+$h_menu: 68px
+$h_bread: 40px
+
+$h_top_panel: 400px
+$h_bot_panel_top: $h_top_panel + $h_header + $h_menu + $h_bread
+
 #header > :first-child
   width: auto
   
@@ -83,39 +90,54 @@ html,body
     z-index: 1001
     /*-webkit-overflow-scrolling: touch*/
 
-  .panel-channel-list 
-    top: 119px
-  
   .panel-content
-
+    padding: 0
+    margin: 0
+    
   .panel-content-padded 
     padding: 10px
+    margin: 0
   
-  .panel-1 
+  .panel-channel-list 
+    top: 119px
     left: 0px
     width: 220px
     background-color: #111
-  
-  .panel-2 
+
+  .panel-msg-list
     left: 220px
     width: 260px
+    height: $h_top_panel
     background-color: #aaa
+
+  .panel-msg-history
+    left: 220px
+    width: 260px
+    top: $h_bot_panel_top
+    background-color: #555
   
-  .panel-3 
+  .panel-msg-viewer
     width: 400px
     left: 460px
     background-color: #fff
-  
-  .panel-4 
+
+  .panel-presence-stream
     min-width: 400px  
     left: 860px
+    height: $h_top_panel
     background-color: #222
+  
+  .panel-rawstream
+    min-width: 400px
+    left: 860px
+    top: $h_bot_panel_top
+    background-color: #111
 
   .panel-header 
     font-size: 18px
     margin-bottom: 15px
 
-#msglist-container 
+#msg-list-container 
   border-collapse: collapse
   display: table
 

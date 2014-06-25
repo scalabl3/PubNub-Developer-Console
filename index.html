@@ -126,7 +126,7 @@
 			<!-- END RIBBON -->
 
       <div class="panel-block">
-				<div class="panel panel-1 panel-channel-list">
+				<div class="panel panel-channel-list">
 				  <div class="panel-content">
             <aside id="channel-list">			
         		    <nav id="channels-on">
@@ -146,24 +146,37 @@
         		</aside>
         	</div>
         </div>
-				<div class="panel panel-2">
+				<div class="panel panel-msg-list">
 				  <div class="panel-content-padded">
 					  <div class="panel-header"><span style="font-weight: bold;">MESSAGES</span></div>
-			      <div id="msglist-container"></div> 
+			      <div id="msg-list-container"></div> 
 			    </div>
 				</div>
-				<div class="panel panel-3">
+				<div class="panel panel-msg-history">
+				  <div class="panel-content-padded">
+					  <div class="panel-header"><span style="font-weight: bold;">HISTORY</span></div>
+			      <div id="msg-history-container"></div> 
+		    </div>
+				</div>
+				<div class="panel panel-msg-viewer">
 				  <div class="panel-content-padded">
 			      <div class="panel-header"><span style="font-weight: bold;">VIEWER</span></div>
-			      <div id="msg-viewer"></div>
+			      <div id="msg-viewer-container"></div>
 			    </div>
 			  </div>
-        <div class="panel panel-4">
+        <div class="panel panel-rawstream">
           <div class="panel-content-padded">
 			      <div class="panel-header"><span style="font-weight: bold;color: white;">RAW STREAM</span></div>
-			      <div id="msg-rawstream"></div>
+			      <div id="msg-rawstream-container"></div>
 			    </div>
 			  </div>
+        <div class="panel panel-presence-stream">
+          <div class="panel-content-padded">
+			      <div class="panel-header"><span style="font-weight: bold;color: white;">PRESENCE STREAM</span></div>
+			      <div id="presence-stream-container"></div>
+			    </div>
+			  </div>
+
 			</div>
 			<!-- MAIN CONTENT -->
 			<div id="content">
@@ -200,27 +213,56 @@
 		
 
 		<script>
-      $(function(){
-
+ 			$(document).ready(function() {
+ 			  
           var $header = $('#header');
           var $topmenu = $('#left-panel');
           var $breadcrumb = $('#ribbon');
-          var $panel_1 = $("div.panel-1");
-          var $panel_2 = $("div.panel-2");
-          var $panel_3 = $("div.panel-3");
-          var $panel_4 = $("div.panel-4");
+          
+          var $panel_channels = $("div.panel-channel-list");
+          var $panel_msg_list = $("div.panel-msg-list");
+          var $panel_history = $("div.panel-msg-history");
+          var $panel_viewer = $("div.panel-msg-viewer");
+          var $panel_rawstream = $("div.panel-msg-rawstream");
+          var $panel_presence = $("div.panel-presence-stream");
+          
+          
           var $window = $(window).on('resize', function(){
-             var height = $(this).height() - $header.height() - $topmenu.height() - $breadcrumb.height();
-             $("div.panel").height(height);
-             height += $breadcrumb.height();
-             $("div.panel-1").height(height);
-             var width = $(this).width() - $panel_1.width() - $panel_2.width() - $panel_3.width();
-             $panel_4.width(width);
+            
+             var channel_height = $(this).height() - $header.height() - $topmenu.height();
+             var content_height = channel_height - $breadcrumb.height();
+             var half_content_height = channel_height / 2;
+             var position = $panel_history.position();
+             
+             $panel_channels.height(channel_height);
+             $panel_msg_list.height(half_content_height);
+             $panel_history.height(content_height - half_content_height);
+             $panel_viewer.height(content_height);
+             $panel_rawstream.height(half_content_height);
+             $panel_presence.height(content_height - half_content_height);
+             
+             $panel_rawstream.css({top: half_content_height + $header.height});
+             $panel_history.css({top: half_content_height  + $header.height});
+               
+             var raw_presence_width = $(this).width() - $panel_channels.width() - $panel_msg_list.width() - $panel_viewer.width();
+             $panel_presence.width(raw_presence_width);
+             $panel_rawstream.width(raw_presence_width);
+             
+             var reporting = "browser: " + $(this).width() + "x" + $(this).height() + "\n";
+             reporting += "\tcontent_height: " + content_height + "\n";
+             reporting += "\thalf_height   : " + half_content_height + "\n";
+             reporting += "\tchannels      : " + $panel_channels.height() + "\n";
+             reporting += "\tmsg_list      : " + $panel_msg_list.height() + "\n";
+             reporting += "\thistory       : " + $panel_history.height() + "\n";
+             
+             reporting += "\thistory top o  : " + $position.top + "\n";
+             position = $panel_history.position();
+             reporting += "\thistory top n  : " + $position.top + "\n";
+             console.log(reporting);
+
+             
           }).trigger('resize'); //on page load
 
-      });
-      
-			$(document).ready(function() {
       	pageSetUp();
   			get_realtime();
   			
