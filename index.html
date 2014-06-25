@@ -231,7 +231,7 @@
             
              var channel_height = $(this).height() - $header.height() - $topmenu.height();
              var content_height = channel_height - $breadcrumb.height();
-             var half_content_height = channel_height / 2;
+             var half_content_height = content_height / 2;
              var position = $panel_history.position();
              
              $panel_channels.height(channel_height);
@@ -252,9 +252,10 @@
              reporting += "\tbrowser       : " + $(this).height() + "\n";
              reporting += "\theader        : " + $header.height() + "\n";
              reporting += "\ttopmenu       : " + $topmenu.height() + "\n";
+             reporting += "\tchannels      : " + $panel_channels.height() + "\n\n";
+             
              reporting += "\tcontent_height: " + content_height + "\n";
              reporting += "\thalf_height   : " + half_content_height + "\n";
-             reporting += "\tchannels      : " + $panel_channels.height() + "\n";
              reporting += "\tmsg_list      : " + $panel_msg_list.height() + "\n";
              reporting += "\thistory       : " + $panel_history.height() + "\n";
              

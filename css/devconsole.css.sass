@@ -114,6 +114,7 @@ html,body
     left: 220px
     width: 260px
     top: $h_bot_panel_top
+    z-index: 1002
     background-color: #555
   
   .panel-msg-viewer
@@ -130,6 +131,7 @@ html,body
   .panel-rawstream
     min-width: 400px
     left: 860px
+    z-index: 1002
     top: $h_bot_panel_top
     background-color: #111
 
@@ -191,12 +193,13 @@ html,body
     font-weight: bold
 
 
-#msg-rawstream
+#msg-rawstream-container
 
   .msg-raw-item-content 
     color: green
+    font-weight: bold
     padding: 15px
-    font-family: Menlo, monospace
+    font-family: Menlo, 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', Monaco, Consolas, monospace
 
 
 
