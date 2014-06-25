@@ -248,7 +248,10 @@
              $panel_presence.width(raw_presence_width);
              $panel_rawstream.width(raw_presence_width);
              
-             var reporting = "browser: " + $(this).width() + "x" + $(this).height() + "\n";
+             var reporting = "";
+             reporting += "\tbrowser       : " + $(this).height() + "\n";
+             reporting += "\theader        : " + $header.height() + "\n";
+             reporting += "\ttopmenu       : " + $topmenu.height() + "\n";
              reporting += "\tcontent_height: " + content_height + "\n";
              reporting += "\thalf_height   : " + half_content_height + "\n";
              reporting += "\tchannels      : " + $panel_channels.height() + "\n";
