@@ -1,57 +1,120 @@
 Storage.prototype.setObject = function(key, value) {
     this.setItem(key, JSON.stringify(value));
-}
+};
 
 Storage.prototype.getObject = function(key) {
     var value = this.getItem(key);
     return value && JSON.parse(value);
+};
+
+var jsonDisplay = {
+
+    jsonstring : '' ,
+    outputDivID : '#msg-viewer',
+
+    outputPrettyFromString: function (jsonstring) {
+        jsonstring = (jsonstring === '' ? jsonDisplay.jsonstring : jsonstring);
+        //e = document.getElementById(outputDivID);
+        //e.innerHTML = jsonstring;
+        // prettify spacing
+        var e = $(jsonDisplay.outputDivID);  
+        try {
+            var pretty  = JSON.stringify(JSON.parse(jsonstring),null,2);
+            var shpretty = jsonDisplay.syntaxHighlight(pretty);              
+            e.html("<pre>" + shpretty + "</pre>");
+        }
+        catch (err) {
+            console.log(err);
+            e.html("<pre><span class=\"string\">" + jsonstring + "</span></pre>");
+        }
+        
+        return;
+    },
+    outputPrettyFromObject: function (jsonobject) {
+        
+        //jsonobject = (jsonobject === null ? jsonDisplay.jsonobject : {});
+        
+        var e = $(jsonDisplay.outputDivID);
+          
+        try {
+            var pretty  = JSON.stringify(jsonobject,null,2);
+            var shpretty = jsonDisplay.syntaxHighlight(pretty);              
+            e.html("<pre>" + shpretty + "</pre>");
+        }
+        catch (err) {
+            console.log(err);
+            e.html("<pre><span class=\"string\">" + jsonobject + "</span></pre>");
+        }
+        
+        return;
+        // syntaxhighlight the pretty print version
+        
+        //output to a div
+        // This could be a one liner with jQuery 
+        // - but not making assumptions about jQuery or other library being available.
+        // newDiv = document.createElement("pre");      
+        // newDiv.id = "jsonoutput";
+        // document.getElementById(jsonDisplay.outputDivID).appendChild(newDiv);
+        // newDiv = getElementById("jsonoutput");
+        // newDiv.innerHTML = shpretty;
+    },
+    
+    syntaxHighlight : function (json) {
+        
+        if (typeof json != 'string') {
+            json = JSON.stringify(json, undefined, 2);
+        }
+        
+        json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+            var cls = 'number';
+            if (/^"/.test(match)) {
+                if (/:$/.test(match)) {
+                  cls = 'key';
+                } else {
+                  cls = 'string';
+                }
+            } else if (/true|false/.test(match)) {
+                cls = 'boolean';
+            } else if (/null/.test(match)) {
+                cls = 'null';
+            }
+            return '<span class="' + cls + '">' + match + '</span>';
+        });
+    }
+};
+
+function save_channel_info() {
+  localStorage.setObject("channels_on", window.channels_on);
+  localStorage.setObject("channels_off", window.channels_off)
 }
 
-function pull_channel_list() {
-  var url_global_here_now = "http://pubsub.pubnub.com/v2/presence/sub-key/" + subkey + "?disable_uuids=1";
-  console.log("pulling channel list...");
+function load_localstorage() {
   
-  $.ajax({
-    url: url_global_here_now,
-    datatype: "json",
-    beforeSend: function( xhr ) {
-      xhr.overrideMimeType( "application/json" );
-    }
-  })
-  .done(function( data ) {
-    console.log("done");
-    if ( console && console.log ) {
-      //console.log(data);
-    }
-    if (data.payload.channels) {
-      
-      $.each(data.payload.channels, function(k,v){
-          var c = k;
-          var occupants = v.occupancy;
-          if (window.channels_on[c]) {
-            //console.log("updating channels_on: " + c + " with " + occupants);
-            window.channels_on[c].occupants = occupants;
-          }
-          else if (channels_off[c]) {
-            //console.log("updating channels_off: " + c + " with " + occupants);
-            window.channels_off[c].occupants = occupants;
-          }
-          else {
-            //console.log("adding to channels_off: " + c + " with " + occupants);
-            window.channels_off[c] = { occupants: occupants };
-          }          
-      });
-      
-      save_channel_info();
-      //console.log(window.channels_on);
-      //console.log(window.channels_off);
-      update_channel_nav();
-    }
-  });
+  if (!localStorage.getItem("publishkey")) { localStorage.setItem("publishkey", "demo");}
+  if (!localStorage.getItem("subscribekey")) { localStorage.setItem("subscribekey", "demo");}
+
+  if (!localStorage.getItem("channels_on")) { localStorage.setObject("channels_on", {});}
+  if (!localStorage.getItem("channels_off")) { localStorage.setObject("channels_off", {});}
+
+  window.pubkey = localStorage.getItem("publishkey");
+  window.subkey = localStorage.getItem("subscribekey");
+  window.channels_on = localStorage.getObject("channels_on");
+  window.channels_off = localStorage.getObject("channels_off");
+  window.channel_watching = localStorage.getItem("channel_watching");  
+  window.channel_watching_messages = [];
 }
 
-
-
+function activate_channel_watch(c) {
+  $("#channels-on li").each( function(){ $(this).removeClass("watching");} )
+  $("#channels-on li[data-channel='" + c + "']").addClass("watching");
+  $("#channel-watching").text(c);
+  window.channel_watching = c;
+  $("#msglist-container div").remove();
+  $("#msg-viewer pre").remove();
+  $("#msg-rawstream div").remove();
+  localStorage.setItem("channel_watching", c);
+}
 function update_channel_nav() {
   
   //$("#channels-on ul li").remove();
@@ -97,16 +160,57 @@ function update_channel_nav() {
   });
 }
 
-function activate_channel_watch(c) {
-  $("#channels-on li").each( function(){ $(this).removeClass("watching");} )
-  $("#channels-on li[data-channel='" + c + "']").addClass("watching");
-  $("#channel-watching").text(c);
-  window.channel_watching = c;
-  $("#msg-container div").remove();
-  $("#msg-viewer pre").remove();
-  $("#msg-rawstream div").remove();
-  localStorage.setItem("channel_watching", c);
+
+function pull_channel_list() {
+  var url_global_here_now = "http://pubsub.pubnub.com/v2/presence/sub-key/" + window.subkey + "?disable_uuids=1";
+  console.log("pulling channel list...");
+  
+  $.ajax({
+    url: url_global_here_now,
+    datatype: "json",
+    beforeSend: function( xhr ) {
+      xhr.overrideMimeType( "application/json" );
+    }
+  })
+  .done(function( data ) {
+    console.log("done");
+    if ( console && console.log ) {
+      //console.log(data);
+    }
+    if (data.payload.channels) {
+      
+      $.each(data.payload.channels, function(k,v){
+          var c = k;
+          var occupants = v.occupancy;
+          if (window.channels_on[c]) {
+            //console.log("updating channels_on: " + c + " with " + occupants);
+            window.channels_on[c].occupants = occupants;
+          }
+          else if (window.channels_off[c]) {
+            //console.log("updating channels_off: " + c + " with " + occupants);
+            window.channels_off[c].occupants = occupants;
+          }
+          else {
+            //console.log("adding to channels_off: " + c + " with " + occupants);
+            window.channels_off[c] = { occupants: occupants };
+          }          
+      });
+      
+      save_channel_info();
+      //console.log(window.channels_on);
+      //console.log(window.channels_off);
+      update_channel_nav();
+    }
+  });
 }
+
+
+
+
+
+
+
+
 
 function display_in_viewer(msg) {
   jsonDisplay.outputPrettyFromObject(msg);
@@ -115,10 +219,10 @@ function display_in_viewer(msg) {
 function message_received(msg, id, channel) {
   if (channel === window.channel_watching) {
     var index = window.channel_watching_messages.push(msg) - 1;
-    $("#msg-container").prepend("<div class=\"msg-item\" id=\"" + id + "\" data-index=\"" + index + "\"><div class=\"msg-item-content\">" + id + "</div></div>");
+    $("#msglist-container").prepend("<div class=\"msg-item\" id=\"" + id + "\" data-index=\"" + index + "\"><div class=\"msg-item-content\">" + id + "</div></div>");
     $("#msg-rawstream").prepend("<div class=\"msg-raw-item\"><div class=\"msg-raw-item-content\">" + JSON.stringify(msg) + "</div></div>");
     
-    $("#msg-container div.msg-item[data-index='" + index + "']").click(function(){
+    $("#msglist-container div.msg-item[data-index='" + index + "']").click(function(){
       display_in_viewer(window.channel_watching_messages[index]);
       $("div.msg-item").removeClass("viewing");
       $(this).addClass("viewing");      
@@ -127,9 +231,9 @@ function message_received(msg, id, channel) {
 }
 function subscribed(c) {
   console.log("subscribed to channel: " + c);
-  occ = (window.channels_off[c] ? window.channels_off[c].occupants : -1)
-  delete window.channels_off[c]
-  window.channels_on[c] = { occupants: occ }
+  var occ = (window.channels_off[c] ? window.channels_off[c].occupants : -1);
+  delete window.channels_off[c];
+  window.channels_on[c] = { occupants: occ };
   save_channel_info();
   update_channel_nav();
 }
@@ -172,7 +276,7 @@ function get_realtime() {
    window.pubnub = PUBNUB.init({
        publish_key   : window.pubkey,
        subscribe_key : window.subkey
-   })
+   });
    
    setup_previously_watching();
    
@@ -189,101 +293,7 @@ function get_realtime() {
    }, 1000);
 }
 
-function load_localstorage() {
-  
-  if (!localStorage.getItem("publishkey")) { localStorage.setItem("publishkey", "demo")}
-  if (!localStorage.getItem("subscribekey")) { localStorage.setItem("subscribekey", "demo")}
-
-  if (!localStorage.getItem("channels_on")) { localStorage.setObject("channels_on", {})}
-  if (!localStorage.getItem("channels_off")) { localStorage.setObject("channels_off", {})}
-
-  window.pubkey = localStorage.getItem("publishkey");
-  window.subkey = localStorage.getItem("subscribekey");
-  window.channels_on = localStorage.getObject("channels_on");
-  window.channels_off = localStorage.getObject("channels_off");
-  window.channel_watching = localStorage.getItem("channel_watching");  
-  window.channel_watching_messages = [];
-}
-
-function save_channel_info() {
-  localStorage.setObject("channels_on", window.channels_on);
-  localStorage.setObject("channels_off", window.channels_off)
-}
 
 
-jsonDisplay = {
 
-    jsonstring : '' ,
-    outputDivID : '#msg-viewer',
 
-    outputPrettyFromString: function (jsonstring) {
-        jsonstring = (jsonstring === '' ? jsonDisplay.jsonstring : jsonstring);
-        //e = document.getElementById(outputDivID);
-        //e.innerHTML = jsonstring;
-        // prettify spacing
-        e = $(jsonDisplay.outputDivID);  
-        try {
-            var pretty  = JSON.stringify(JSON.parse(jsonstring),null,2);
-            shpretty = jsonDisplay.syntaxHighlight(pretty);              
-            e.html("<pre>" + shpretty + "</pre>");
-        }
-        catch (err) {
-            console.log(err);
-            e.html("<pre><span class=\"string\">" + jsonstring + "</span></pre>");
-        }
-        
-        return;
-    },
-    outputPrettyFromObject: function (jsonobject) {
-        
-        //jsonobject = (jsonobject === null ? jsonDisplay.jsonobject : {});
-        
-        e = $(jsonDisplay.outputDivID);
-          
-        try {
-            var pretty  = JSON.stringify(jsonobject,null,2);
-            shpretty = jsonDisplay.syntaxHighlight(pretty);              
-            e.html("<pre>" + shpretty + "</pre>");
-        }
-        catch (err) {
-            console.log(err);
-            e.html("<pre><span class=\"string\">" + jsonobject + "</span></pre>");
-        }
-        
-        return;
-        // syntaxhighlight the pretty print version
-        
-        //output to a div
-        // This could be a one liner with jQuery 
-        // - but not making assumptions about jQuery or other library being available.
-        // newDiv = document.createElement("pre");      
-        // newDiv.id = "jsonoutput";
-        // document.getElementById(jsonDisplay.outputDivID).appendChild(newDiv);
-        // newDiv = getElementById("jsonoutput");
-        // newDiv.innerHTML = shpretty;
-    },
-    
-    syntaxHighlight : function (json) {
-        
-        if (typeof json != 'string') {
-            json = JSON.stringify(json, undefined, 2);
-        }
-        
-        json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-        return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
-            var cls = 'number';
-            if (/^"/.test(match)) {
-                if (/:$/.test(match)) {
-                  cls = 'key';
-                } else {
-                  cls = 'string';
-                }
-            } else if (/true|false/.test(match)) {
-                cls = 'boolean';
-            } else if (/null/.test(match)) {
-                cls = 'null';
-            }
-            return '<span class="' + cls + '">' + match + '</span>';
-        });
-    }
-}
