@@ -128,7 +128,7 @@ function update_channel_nav() {
   $.each(window.channels_on, function(k,v) {
     
     if ($("#channels-on li[data-channel='" + k + "']").length) {
-      $("#channels-on[data-channel='" + k + "'] > a span.badge").text(v.occupants.toString());
+      $("#channels-on li[data-channel='" + k + "'] > a span.badge").text(v.occupants.toString());
     }
     else {
       $("#channels-on ul").append("<li data-channel=\"" + k + "\">\n<a title=\"" + k + "\"><i class=\"fa fa-lg fa-fw fa-list-ul\"></i> <span class=\"menu-item-parent\">" + k + "</span><span class=\"badge bg-color-greenLight pull-right inbox-badge\">" + v.occupants + "</span></a>\n</li>\n");
