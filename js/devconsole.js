@@ -139,7 +139,7 @@ function update_channel_nav() {
           activate_channel_watch(c);
           //console.log("clicked " + c + " channel");
         });
-      });
+      }); 
     }
   });
   
