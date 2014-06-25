@@ -106,7 +106,7 @@ function load_localstorage() {
 }
 
 function activate_channel_watch(c) {
-  $("#channels-on li").each( function(){ $(this).removeClass("watching");} )
+  $("#channels-on li").each( function(){ $(this).removeClass("watching");} );
   $("#channels-on li[data-channel='" + c + "']").addClass("watching");
   $("#channel-watching").text(c);
   window.channel_watching = c;
@@ -132,7 +132,7 @@ function update_channel_nav() {
         $(this).click(function(){
           var c = $(this).attr("data-channel");
           activate_channel_watch(c);
-          console.log("clicked " + c + " channel");
+          //console.log("clicked " + c + " channel");
         });
       });
     }
@@ -152,7 +152,7 @@ function update_channel_nav() {
       $("#channels-off ul li").each(function(){
         $(this).click(function(){
           var c = $(this).attr("data-channel");              
-          console.log("clicked " + c + " channel");
+          //console.log("clicked " + c + " channel");
           subscribe(c, activate_channel_watch(c));          
         });
       });
@@ -163,7 +163,7 @@ function update_channel_nav() {
 
 function pull_channel_list() {
   var url_global_here_now = "http://pubsub.pubnub.com/v2/presence/sub-key/" + window.subkey + "?disable_uuids=1";
-  console.log("pulling channel list...");
+  console.log("refreshing channel list...");
   
   $.ajax({
     url: url_global_here_now,
@@ -173,10 +173,6 @@ function pull_channel_list() {
     }
   })
   .done(function( data ) {
-    console.log("done");
-    if ( console && console.log ) {
-      //console.log(data);
-    }
     if (data.payload.channels) {
       
       $.each(data.payload.channels, function(k,v){
@@ -255,7 +251,11 @@ function setup_previously_watching() {
   if (window.channel_watching) {
     window.pubnub.subscribe({
        channel : window.channel_watching,
-       message : function(m,e,c){ message_received(m, e[1], c); console.log("Message Received: \n\tm:" + m + "\n\te:" + e[1] + "\n\tc:" + c); console.log(m);},
+       message : function(m,e,c) { 
+            message_received(m, e[1], c); 
+            //console.log("Message Received: \n\tm:" + m + "\n\te:" + e[1] + "\n\tc:" + c); 
+            //console.log(m);
+       },
        connect : function() { subscribed(window.channel_watching); }
    });
    activate_channel_watch(window.channel_watching);
