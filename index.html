@@ -200,21 +200,23 @@
 							</div>
 							<div class="modal-body">				
 							  <form role="form">
-								<div class="row">
-									<div class="col-md-12">
-										<div class="form-group">
-											<label for="publishkey"> Publish Key</label>											
-											<input type="text" id="publishkey" class="form-control" placeholder="pub-12345678-abcd-1a2b-3c4d-5e6f78901234" required />
-										</div>
-										<div class="form-group">
-											<label for="subscribekey"> Subscribe Key</label>
-											<input type="text" id="subscribekey" class="form-control" placeholder="sub-98765432-dcba-9f8e-7d6c-1a2b3c4d5e6f" required />
-										</div>
+									<div class="form-group">
+										<label for="publishkey"> Publish Key</label>											
+										<input type="text" id="publishkey" class="form-control" placeholder="pub-12345678-abcd-1a2b-3c4d-5e6f78901234" required />
 									</div>
-								</div>
+									<div class="form-group">
+										<label for="subscribekey"> Subscribe Key</label>
+										<input type="text" id="subscribekey" class="form-control" placeholder="sub-98765432-dcba-9f8e-7d6c-1a2b3c4d5e6f" required />
+									</div>
+								</form>
 								<div class="row">
 									<div class="col-md-12">
 									  Use <code>demo</code> for publish/subscribe keys if you want to monitor demo account.
+									</div>
+								</div>
+                <div class="row">
+									<div class="col-md-12">
+									  <br />
 									</div>
 								</div>
 								<div class="row">
@@ -223,18 +225,17 @@
 										<table class="table table-bordered">
 											<tbody>
 												<tr>
-													<td class="pn-keys-label">Publish Key:</td>
+													<td class="pn-keys-label">Publish Key</td>
 													<td class="pn-keys-value"><span id="current_publishkey"></span></td>
 												</tr>
 												<tr>
-													<td class="pn-keys-label">Subscribe Key:</td>
+													<td class="pn-keys-label">Subscribe Key</td>
 													<td class="pn-keys-value"><span id="current_subscribekey"></span></td>
 												</tr>
 											</tbody>
 										</table>
 									</div>
-								</div>
-								</form>
+								</div>								
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-default" data-dismiss="modal">
