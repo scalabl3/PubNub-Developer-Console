@@ -124,83 +124,84 @@
 
 			</div>
 			<!-- END RIBBON -->
-
-      <div class="panel-block">
+			<div class="panel"></div>
+			
+			<div class="panel-block">
 				<div class="pn-panel panel-channel-list">
-				  <div class="panel-content">
-            <aside id="channel-list">			
-        		    <nav id="channels-on">
-        			    <ul>
-        					  <li>
-        						  <a title="Channels"><span class="menu-item-parent" style="font-weight: bold;">SUBSCRIBED CHANNELS</span></a>
-        					  </li>			 
-        				  </ul>
-        			  </nav>
-        			  <nav id="channels-off">
-        				  <ul>
-        					  <li>
-        						  <a title="Channels Unsubscribed"><span class="menu-item-parent" style="font-weight: bold;">OTHER CHANNELS</span></a>
-        					  </li>			 
-        				  </ul>
-        			  </nav>			
-        		</aside>
-        	</div>
-        </div>
+					<div class="panel-content">
+						<aside id="channel-list">			
+								<nav id="channels-on">
+									<ul>
+										<li>
+											<a title="Channels"><span class="menu-item-parent" style="font-weight: bold;">SUBSCRIBED CHANNELS</span></a>
+										</li>			 
+									</ul>
+								</nav>
+								<nav id="channels-off">
+									<ul>
+										<li>
+											<a title="Channels Unsubscribed"><span class="menu-item-parent" style="font-weight: bold;">OTHER CHANNELS</span></a>
+										</li>			 
+									</ul>
+								</nav>			
+						</aside>
+					</div>
+				</div>
 				<div class="pn-panel panel-msg-list">
-				  <div class="panel-content-padded">
-					  <div class="panel-header"><span style="font-weight: bold;">MESSAGES</span></div>
-			      <div id="msg-list-container"></div> 
-			    </div>
+					<div class="panel-content-padded">
+						<div class="panel-header"><span style="font-weight: bold;">MESSAGES</span></div>
+						<div id="msg-list-container"></div> 
+					</div>
 				</div>
 				<div class="pn-panel panel-msg-history">
-				  <div class="panel-content-padded">
-					  <div class="panel-header"><span style="font-weight: bold;">HISTORY</span></div>
-			      <div id="msg-history-container"></div> 
-		    </div>
+					<div class="panel-content-padded">
+						<div class="panel-header"><span style="font-weight: bold;">HISTORY</span></div>
+						<div id="msg-history-container"></div> 
+				</div>
 				</div>
 				<div class="pn-panel panel-msg-viewer">
-				  <div class="panel-content-padded">
-			      <div class="panel-header"><span style="font-weight: bold;">VIEWER</span></div>
-			      <div id="msg-viewer-container"></div>
-			    </div>
-			  </div>
-        <div class="pn-panel panel-rawstream">
-          <div class="panel-content-padded">
-			      <div class="panel-header"><span style="font-weight: bold;color: white;">RAW STREAM</span></div>
-			      <div id="msg-rawstream-container"></div>
-			    </div>
-			  </div>
-        <div class="pn-panel panel-presence-stream">
-          <div class="panel-content-padded">
-			      <div class="panel-header"><span style="font-weight: bold;color: white;">PRESENCE STREAM</span></div>
-			      <div id="presence-stream-container"></div>
-			    </div>
-			  </div>
+					<div class="panel-content-padded">
+						<div class="panel-header"><span style="font-weight: bold;">VIEWER</span></div>
+						<div id="msg-viewer-container"></div>
+					</div>
+				</div>
+				<div class="pn-panel panel-rawstream">
+					<div class="panel-content-padded">
+						<div class="panel-header"><span style="font-weight: bold;color: white;">RAW STREAM</span></div>
+						<div id="msg-rawstream-container"></div>
+					</div>
+				</div>
+				<div class="pn-panel panel-presence-stream">
+					<div class="panel-content-padded">
+						<div class="panel-header"><span style="font-weight: bold;color: white;">PRESENCE STREAM</span></div>
+						<div id="presence-stream-container"></div>
+					</div>
+				</div>
 
 			</div>
 			<!-- MAIN CONTENT -->
 			<div id="content">
-			  
+				
 			</div>
 			<!-- END MAIN CONTENT -->
 
 		</div>
 		<!-- END MAIN PANEL -->
-    
+		
 
-    <!-- PUBNUB Communication Framework -->
+		<!-- PUBNUB Communication Framework -->
 		<script src="http://cdn.pubnub.com/pubnub.min.js"></script>
-    
-    <!-- jQuery + jQueryUI; -->
-    <!-- BOOTSTRAP JS -->
-    <!-- CUSTOM NOTIFICATION -->
-    <!-- JQUERY VALIDATE -->
+		
+		<!-- jQuery + jQueryUI; -->
+		<!-- BOOTSTRAP JS -->
+		<!-- CUSTOM NOTIFICATION -->
+		<!-- JQUERY VALIDATE -->
 		<!-- JQUERY MASKED INPUT -->
 		<!-- JQUERY SELECT2 INPUT -->
 		<!-- JQUERY UI + Bootstrap Slider -->
 		<!-- browser msie issue fix -->
 		<!-- FastClick: For mobile devices -->
-    <script src="js/min/devconsole-ck.js"></script>
+		<script src="js/min/devconsole-ck.js"></script>
 
 		<!-- JS TOUCH : include this plugin for mobile drag / drop touch events
 		<script src="js/plugin/jquery-touch/jquery.ui.touch-punch.min.js"></script> -->
@@ -213,72 +214,72 @@
 		
 
 		<script>
- 			  
-      var $header = $('#header');
-      var $topmenu = $('#left-panel');
-      var $breadcrumb = $('#ribbon');
-      
-      var $panel_channels = $("div.panel-channel-list");
-      var $panel_msg_list = $("div.panel-msg-list");
-      var $panel_history = $("div.panel-msg-history");
-      var $panel_viewer = $("div.panel-msg-viewer");
-      var $panel_rawstream = $("div.panel-rawstream");
-      var $panel_presence = $("div.panel-presence-stream");
-      
-      
-      var $window = $(window).on('resize', function(){
-        
-         var channel_height = $(this).height() - $header.height() - $topmenu.height();
-         var content_height = channel_height - $breadcrumb.height();
-         var half_content_height = content_height / 2;
-         var content_header_height = $(this).height() - content_height;
+				
+			var $header = $('#header');
+			var $topmenu = $('#left-panel');
+			var $breadcrumb = $('#ribbon');
+			
+			var $panel_channels = $("div.panel-channel-list");
+			var $panel_msg_list = $("div.panel-msg-list");
+			var $panel_history = $("div.panel-msg-history");
+			var $panel_viewer = $("div.panel-msg-viewer");
+			var $panel_rawstream = $("div.panel-rawstream");
+			var $panel_presence = $("div.panel-presence-stream");
+			
+			
+			var $window = $(window).on('resize', function(){
+				
+				 var channel_height = $(this).height() - $header.height() - $topmenu.height();
+				 var content_height = channel_height - $breadcrumb.height();
+				 var half_content_height = content_height / 2;
+				 var content_header_height = $(this).height() - content_height;
 
-         var p1 = $panel_history.position();
-         var p2 = $panel_rawstream.position();
-         
-         $panel_channels.height(channel_height);
-         $panel_msg_list.height(half_content_height);
-         $panel_history.height(content_height - half_content_height);
-         $panel_viewer.height(content_height);
-         $panel_rawstream.height(half_content_height);
-         $panel_presence.height(content_height - half_content_height);
-         
-         $panel_rawstream.css({top: half_content_height + content_header_height});
-         $panel_history.css({top: half_content_height  + content_header_height});
-           
-         var raw_presence_width = $(this).width() - $panel_channels.width() - $panel_msg_list.width() - $panel_viewer.width();
-         $panel_presence.width(raw_presence_width);
-         $panel_rawstream.width(raw_presence_width);
-         
-         var reporting = "";
-         reporting += "\tbrowser        : " + $(this).height() + "\n";
-         reporting += "\theader         : " + $header.height() + "\n";
-         reporting += "\ttopmenu        : " + $topmenu.height() + "\n";
-         reporting += "\tchannels       : " + $panel_channels.height() + "\n\n";
-         
-         reporting += "\tcontent_height : " + content_height + "\n";
-         reporting += "\thalf_height    : " + half_content_height + "\n";
-         reporting += "\tmsg_list       : " + $panel_msg_list.height() + "\n";
-         reporting += "\thistory        : " + $panel_history.height() + "\n";
-         
-         reporting += "\thistory top o  : " + p1.top + "\n";
-         reporting += "\traw top o      : " + p2.top + "\n";
-         
-         p1 = $panel_history.position();
-         p2 = $panel_rawstream.position();
-         
-         reporting += "\thistory top n  : " + p1.top + "\n";
-         reporting += "\traw top n      : " + p2.top + "\n";
-         
-         //console.log(reporting);
+				 var p1 = $panel_history.position();
+				 var p2 = $panel_rawstream.position();
+				 
+				 $panel_channels.height(channel_height);
+				 $panel_msg_list.height(half_content_height);
+				 $panel_history.height(content_height - half_content_height);
+				 $panel_viewer.height(content_height);
+				 $panel_rawstream.height(half_content_height);
+				 $panel_presence.height(content_height - half_content_height);
+				 
+				 $panel_rawstream.css({top: half_content_height + content_header_height});
+				 $panel_history.css({top: half_content_height	 + content_header_height});
+					 
+				 var raw_presence_width = $(this).width() - $panel_channels.width() - $panel_msg_list.width() - $panel_viewer.width();
+				 $panel_presence.width(raw_presence_width);
+				 $panel_rawstream.width(raw_presence_width);
+				 
+				 var reporting = "";
+				 reporting += "\tbrowser				: " + $(this).height() + "\n";
+				 reporting += "\theader					: " + $header.height() + "\n";
+				 reporting += "\ttopmenu				: " + $topmenu.height() + "\n";
+				 reporting += "\tchannels				: " + $panel_channels.height() + "\n\n";
+				 
+				 reporting += "\tcontent_height : " + content_height + "\n";
+				 reporting += "\thalf_height		: " + half_content_height + "\n";
+				 reporting += "\tmsg_list				: " + $panel_msg_list.height() + "\n";
+				 reporting += "\thistory				: " + $panel_history.height() + "\n";
+				 
+				 reporting += "\thistory top o	: " + p1.top + "\n";
+				 reporting += "\traw top o			: " + p2.top + "\n";
+				 
+				 p1 = $panel_history.position();
+				 p2 = $panel_rawstream.position();
+				 
+				 reporting += "\thistory top n	: " + p1.top + "\n";
+				 reporting += "\traw top n			: " + p2.top + "\n";
+				 
+				 //console.log(reporting);
 
-         
-      }).trigger('resize'); //on page load
+				 
+			}).trigger('resize'); //on page load
 
- 			$(document).ready(function() {
-      	pageSetUp();
-  			get_realtime();  			
-      });
+			$(document).ready(function() {
+				pageSetUp();
+				get_realtime();				
+			});
 		</script>
 
 	</body>
