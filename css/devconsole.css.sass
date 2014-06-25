@@ -25,6 +25,10 @@ $h_bread: 40px
 $h_top_panel: 400px
 $h_bot_panel_top: $h_top_panel + $h_header + $h_menu + $h_bread
 
+$w_channels: 220px
+$w_msg_list: 260px
+$w_msg_viewer: 400px
+
 #header > :first-child
   width: auto
   
@@ -101,36 +105,36 @@ html,body
   .panel-channel-list 
     top: 119px
     left: 0px
-    width: 220px
+    width: $w_channels
     background-color: #111
 
   .panel-msg-list
     left: 220px
-    width: 260px
+    width: $w_msg_list
     height: $h_top_panel
     background-color: #aaa
 
   .panel-msg-history
     left: 220px
-    width: 260px
+    width: $w_msg_list
     top: $h_bot_panel_top
     z-index: 1002
     background-color: #555
   
   .panel-msg-viewer
     width: 400px
-    left: 480px
+    left: $w_channels + $w_msg_list
     background-color: #fff
 
   .panel-presence-stream
     min-width: 400px  
-    left: 860px
+    left: $w_channels + $w_msg_list + $w_msg_viewer
     height: $h_top_panel
     background-color: #222
   
   .panel-rawstream
     min-width: 400px
-    left: 860px
+    left: $w_channels + $w_msg_list + $w_msg_viewer
     z-index: 1002
     top: $h_bot_panel_top
     background-color: #111
