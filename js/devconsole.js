@@ -90,7 +90,7 @@ function update_channel_nav() {
         $(this).click(function(){
           var c = $(this).attr("data-channel");              
           console.log("clicked " + c + " channel");
-          subscribe(c, activate_channel_watch(c));
+          subscribe(c, activate_channel_watch(c));          
         });
       });
     }
