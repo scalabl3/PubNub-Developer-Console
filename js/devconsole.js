@@ -128,7 +128,7 @@ function update_channel_nav() {
   $.each(window.channels_on, function(k,v) {
     
     if ($("#channels-on li[data-channel='" + k + "']").length) {
-      $("#channels-on[data-channel='" + k + "'] li a+span").text = v.occupants;
+      $("#channels-on[data-channel='" + k + "'] li a+span").text(v.occupants);
     }
     else {
       $("#channels-on ul").append("<li data-channel=\"" + k + "\">\n<a title=\"" + k + "\"><i class=\"fa fa-lg fa-fw fa-list-ul\"></i> <span class=\"menu-item-parent\">" + k + "</span><span class=\"badge bg-color-greenLight pull-right inbox-badge\">" + v.occupants + "</span></a>\n</li>\n");
@@ -149,7 +149,7 @@ function update_channel_nav() {
   $.each(window.channels_off, function(k,v) {    
     
     if ($("#channels-off li[data-channel='" + k + "']").length) {
-      $("#channels-off li[data-channel='" + k + "'] li a+span").text = v.occupants;
+      $("#channels-off li[data-channel='" + k + "'] li a+span").text(v.occupants);
     }
     else {
       $("#channels-off ul").append("<li data-channel=\"" + k + "\">\n<a title=\"" + k + "\"><i class=\"fa fa-lg fa-fw fa-list-ul\"></i> <span class=\"menu-item-parent\">" + k + "</span><span class=\"badge bg-color-greenLight pull-right inbox-badge\">" + v.occupants + "</span></a>\n</li>\n");
@@ -184,7 +184,7 @@ function pull_channel_list() {
           var c = k;
           var occupants = v.occupancy;
           if (window.channels_on.hasOwnProperty(c)) {
-            //console.log("updating channels_on: " + c + " with " + occupants);
+            console.log("updating presence in " + c + ": " + occupants);
             window.channels_on[c].occupants = occupants;
           }
           else if (window.channels_off.hasOwnProperty(c)) {
